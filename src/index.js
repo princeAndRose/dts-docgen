@@ -50,7 +50,7 @@ function transformPath(inputPath) {
 
 /**
  * 根据dts文件转换成对应的API解释文档
- * @param {import('.').IOpions} options 插件配置参数
+ * @param {import('.').IOptions} options 插件配置参数
  */
 function dtsGen({ input, output }) {
   /** @type {string[]} dts源文件路径列表 */
@@ -80,7 +80,7 @@ function dtsGen({ input, output }) {
 /**
  * 对插件配置进行预处理，避免错误配置造成的异常
  * @param {Object} _ build-scripts为插件提供的API接口/能力
- * @param {import('.').IOpions} options 自定义参数
+ * @param {import('.').IOptions} options 自定义参数
  */
 module.exports = function (_, options) {
   const { input, output, overwrite = true } = options;
@@ -88,13 +88,15 @@ module.exports = function (_, options) {
     return;
   }
 
-  // 判断目标输出路径的有效性，无效则使用默认输出路径
-  let outputPath = path.resolve(output);
+  let outputPath = '';
 
-  // 判断路径是否存在，不存在则使用默认路径
-  if (!fs.existsSync(outputPath)) {
-    outputPath = path.join(rootDir, 'doc');
+  // 判断是否指定了输出路径，没有则使用默认路径
+  if (!output) {
+    outputPath = path.join(rootDir, 'doc/api.md');
   }
+
+  // 判断目标输出路径的有效性，无效则使用默认输出路径
+  outputPath = path.resolve(output);
 
   // 判断输入路径是否为目录
   if (fs.statSync(outputPath).isDirectory()) {
@@ -102,6 +104,7 @@ module.exports = function (_, options) {
   }
 
   if (fs.existsSync(outputPath) && !overwrite) {
+    console.log('指定输出路径已存在文件，插件将跳过覆写过程...');
     return;
   }
 

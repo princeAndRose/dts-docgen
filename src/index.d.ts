@@ -29,7 +29,7 @@ export interface InterfaceDspObj {
 /**
  * 插件自定义参数
  */
-export interface IOpions {
+export interface IOptions {
   /**
    * dts文件所在目录
    */
@@ -46,4 +46,12 @@ export interface IOpions {
    * @default true
    */
   overwrite: boolean;
+}
+
+declare module 'dts-docgen' {
+  /**
+   * 根据dts文件转换成对应的API解释文档
+   */
+  const docGen: (_: any, options: IOptions) => void;
+  export default docGen;
 }
