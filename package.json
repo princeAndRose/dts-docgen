@@ -1,0 +1,20 @@
+{
+  "name": "dts-docgen",
+  "version": "1.0.0",
+  "description": "通过指定dts文件目录, 生成对应的API说明文档的插件",
+  "main": "src/index.js",
+  "homepage": "https://github.com/princeAndRose/dts-docgen.git",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/princeAndRose/dts-docgen.git"
+  },
+  "keywords": [
+    "plugin",
+    "dts",
+    "docgen"
+  ],
+  "author": "JunHao Yang",
+  "license": "MIT",
+  "types": "src/index.d.ts"
+}
