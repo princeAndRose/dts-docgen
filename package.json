@@ -1,6 +1,6 @@
 {
   "name": "dts-docgen",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "通过指定dts文件目录, 生成对应的API说明文档的插件",
   "main": "src/index.js",
   "homepage": "https://github.com/princeAndRose/dts-docgen.git",
