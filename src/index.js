@@ -16,8 +16,10 @@ function dtsGen({ input, output }) {
   // 加载dts文件，获取interface列表
   const apiDataArray = input.map(item => interfaceGen.getFormatApiList(item)).flat();
 
+  const typeData = input.map(item => interfaceGen.getFormatTypeList(item)).flat();
+
   // 生成API接口描述文档
-  const markdownContent = generateDocs.generateMarkdown(apiDataArray);
+  const markdownContent = generateDocs.generateMarkdown(apiDataArray, typeData);
 
   const directoryPath = path.dirname(output);
 

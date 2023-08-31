@@ -1,8 +1,19 @@
 import * as React from 'react';
 import type { ValidateRuleConfig } from './validate';
 
-/** 支持渲染的图标类型 */
+/**
+ * 支持渲染的图标类型
+ *
+ * @doc
+ */
 export type IconType = 'fileActive' | 'fileInActive' | 'deleteIcon' | 'success' | 'error';
+
+/**
+ * 用于测试的interface
+ *
+ * @doc
+ */
+export type IExample = () => void;
 
 /** Dom元素事件集合 */
 export interface DomEventSet {

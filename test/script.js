@@ -1,6 +1,6 @@
 const docGen = require('../src/index');
 
-const input = './types/index.d.ts';
+const input = './types';
 
 const path = require('path');
 

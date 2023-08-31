@@ -212,6 +212,36 @@ interface IExample {
 }
 ```
 
+**在 TypeScript 中，type 和 interface 都能用于描述数据的结构和组成，但为了尽量避免判断处理复杂类型导致插件表现的异常，本插件设计之初仅考虑用 interface 描述数据的形状，用 type 定义数据的类型.**
+
+也就是说，插件只能转换以下类型:
+
+```ts
+interface IExample {
+  attr1: string;
+  // ...其他属性
+}
+
+type TExample1 = string | 123 | false;
+
+type TExample2<T> = Array<T>;
+
+type TFunc = (param: string) => void;
+```
+
+对于复杂类型，插件目前无法支持对其的转换，但会考虑在后续更新中支持:
+
+```ts
+type TExample3 = IExample & IExample2;
+
+type TExample4 = {
+  attr1: string;
+  // ...其他属性
+};
+
+// ...更多可能的复杂类型
+```
+
 ## License
 
 [MIT](LICENSE)

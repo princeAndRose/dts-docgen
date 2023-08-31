@@ -27,6 +27,18 @@ export interface InterfaceDspObj {
 }
 
 /**
+ * Type Description Object——type描述对象
+ */
+export interface TypeDspObj {
+  /** type名称 */
+  name: string;
+  /** type的jsdoc描述 */
+  description: string;
+  /** type的类型或可选值字符串 */
+  type: string;
+}
+
+/**
  * 插件自定义参数
  */
 export interface IOptions {

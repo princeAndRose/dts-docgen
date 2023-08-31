@@ -1,4 +1,8 @@
-/** 校验规则 */
+/**
+ * 校验规则
+ *
+ * @doc
+ */
 export type ValidateRule<T> = [T, string];
 
 /**

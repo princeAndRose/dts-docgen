@@ -52,3 +52,10 @@ order: 2
 | fixedHeader | `boolean` | 表头是否固定，该属性配合maxBodyHeight使用，当内容区域的高度超过maxBodyHeight的时候，在内容区域会出现滚动条 | 否 |  |
 | maxBodyHeight | `string | number` | 最大内容区域的高度,在`fixedHeader`为`true`的时候,超过这个高度会出现滚动条，默认为300px | 否 | 300 |
   
+
+## type类型描述
+| 名称 | 类型 | 描述 |
+| --- | --- | --- |
+| IconType | 支持渲染的图标类型 | `"fileActive" | "fileInActive" | "deleteIcon" | "success" | "error"` |
+| IExample | 用于测试的interface | `() => void` |
+| ValidateRule<T> | 校验规则 | `[T, string]` |
