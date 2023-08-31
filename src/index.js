@@ -11,15 +11,21 @@ const rootDir = process.cwd();
  * @param {object} options 插件配置参数
  * @param {string[]} options.input dts文件所在目录
  * @param {string} options.output 最终的md文档输出路径
+ * @param {boolean} options.enableEscape 是否开启对md文档内容的字符转义处理, 默认为false
  */
-function dtsGen({ input, output }) {
+function dtsGen({ input, output, enableEscape = false }) {
   // 加载dts文件，获取interface列表
   const apiDataArray = input.map(item => interfaceGen.getFormatApiList(item)).flat();
 
   const typeData = input.map(item => interfaceGen.getFormatTypeList(item)).flat();
 
   // 生成API接口描述文档
-  const markdownContent = generateDocs.generateMarkdown(apiDataArray, typeData);
+
+  if (apiDataArray.length === 0 && typeData.length === 0) {
+    console.log('读取不到需要生成描述文档的接口或类型，将跳过生成文档...');
+  }
+
+  const markdownContent = generateDocs.generateMarkdown(apiDataArray, typeData, { enableEscape });
 
   const directoryPath = path.dirname(output);
 
@@ -33,14 +39,12 @@ function dtsGen({ input, output }) {
 
 /**
  * 对插件配置进行预处理，避免错误配置造成的异常
- * @param {Object} config build-scripts为插件提供的API接口/能力配置
- * @param {object} config.context context 参数包含运行时的各种环境信息
- * @param {string} config.context.rootDir 项目执行的根目录
+ * @param {import('.').IConfig} config build-scripts为插件提供的API接口/能力配置
  * @param {import('.').IOptions} options 自定义参数
  */
-module.exports = function ({ context }, options) {
+module.exports = function ({ context = {} } = {}, options) {
   let { rootDir } = context;
-  const { input, output, overwrite = true } = options;
+  const { input, output, overwrite = true, enableEscape = false } = options;
 
   if (!rootDir) {
     rootDir = process.cwd();
@@ -68,5 +72,5 @@ module.exports = function ({ context }, options) {
   console.log('dts文件读取路径: ', inputPath);
   console.log('md文档输出路径: ', outputPath);
 
-  dtsGen({ input: inputPath, output: outputPath });
+  dtsGen({ input: inputPath, output: outputPath, enableEscape });
 };

@@ -1,19 +1,8 @@
 import * as React from 'react';
 import type { ValidateRuleConfig } from './validate';
 
-/**
- * 支持渲染的图标类型
- *
- * @doc
- */
+/** 支持渲染的图标类型 */
 export type IconType = 'fileActive' | 'fileInActive' | 'deleteIcon' | 'success' | 'error';
-
-/**
- * 用于测试的interface
- *
- * @doc
- */
-export type IExample = () => void;
 
 /** Dom元素事件集合 */
 export interface DomEventSet {
@@ -40,7 +29,11 @@ export interface CellIndex {
   columnId: string;
 }
 
-/** 单元格内基本渲染元素单位 */
+/**
+ * 单元格内基本渲染元素单位
+ *
+ * @doc
+ */
 export interface BaseElement {
   /**
    * 元素渲染类型
@@ -51,11 +44,11 @@ export interface BaseElement {
   /**
    * 元素对应value
    *
-   * **图标渲染目前支持以下类型**: `'fileActive' | 'fileInActive' | 'deleteIcon' | 'success' | 'error'`
+   * @description **图标渲染目前支持以下类型**: `'fileActive' | 'fileInActive' | 'deleteIcon' | 'success' | 'error'`
    *
-   * **初始值**: `none`
+   * @default none
    */
-  value: IconType | string;
+  value?: IconType | string;
 
   /** 元素校验规则 */
   rule?: ValidateRuleConfig;
@@ -72,21 +65,25 @@ export interface BaseElement {
   /**
    * 元素浮动位置
    *
-   * **可选值**: `left | right | none | inline-start | inline-end`
+   * @description **可选值**: `left | right | none | inline-start | inline-end`
    *
-   * **初始值**: `none`
+   * @default none
    */
   position?: 'left' | 'right' | 'none' | 'inline-start' | 'inline-end';
 
   /**
    * 配合click、icon类型元素使用，会作为单元格ID部分构成，同时也会作为onElemClick的部分参数传入
    *
-   * **注意**: 若想配合onElemClick使用，则此项必传
+   * @description **注意**: 若想配合onElemClick使用，则此项必传
    */
   clickAction?: string;
 }
 
-/** 单元格渲染元素 */
+/**
+ * 单元格渲染元素
+ *
+ * @doc
+ */
 export interface Cell {
   /**
    * 单元格所处列的ID
@@ -97,7 +94,9 @@ export interface Cell {
   elementList: BaseElement[];
 }
 
-/** 列表行渲染元素 */
+/**
+ * 列表行渲染元素
+ */
 export interface Row {
   /** 行ID，单张列表内需要保持唯一 */
   rowId: string;

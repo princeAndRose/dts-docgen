@@ -10,6 +10,7 @@
   - [input](#input)
   - [output](#output)
   - [overwrite](#overwrite)
+  - [enableEscape](#enableEscape)
 - [结合 JSDoc 使用](#jsdoc-配置)
 
 ## 安装导入
@@ -156,6 +157,33 @@ dts 文件所在路径，支持配置一个或多个(相对/绝对)路径，相�
     }
   ]
 }
+```
+
+### enableEscape
+
+某些情况下，你可能需要对文档内容的字符串进行转义处理以使其正常显示，这个时候你可以将`enableEscape`配置项设置为 true 来达到目的:
+
+```json
+{
+  "plugins": [
+    {
+      "name": "dts-docgen",
+      "option": {
+        "input": "./src/types",
+        "output": "./src/doc/api.md",
+        "enableEscape": false
+      }
+    }
+  ]
+}
+```
+
+这样，md 文档中的特殊字符会经过转义处理:
+
+```md
+"left" | "right" | "none" | "inline-start" | "inline-end"
+
+"left" \| "right" \| "none" \| "inline-start" \| "inline-end"
 ```
 
 ## jsdoc 配置

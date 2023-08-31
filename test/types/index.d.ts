@@ -12,7 +12,6 @@ export interface ExtendElement extends Omit<BaseElement, 'type'>, DomEventSet {}
 
 /**
  * 单元格元素渲染方法接收的参数
- * @doc
  */
 export interface CellProps extends CellIndex {
   /** 元素索引，设置为columnId */
@@ -127,7 +126,6 @@ declare module 'sc-gpx-react-fusion-component-dynamic-list-v2' {
     /**
      * 列表ID，默认为table0
      * @description 一个视图中存在多个表格时，必须保证唯一
-     * @default table0
      */
     tableId?: string;
 

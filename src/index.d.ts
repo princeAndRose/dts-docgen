@@ -50,26 +50,33 @@ export interface IOptions {
   /**
    * 最终的md文档输出路径
    */
-  output: string;
+  output?: string;
 
   /**
    * 若指定输出路径存在该文件，是否要覆盖重写
    *
    * @default true
    */
-  overwrite: boolean;
+  overwrite?: boolean;
+
+  /**
+   * 是否开启对md文档内容的字符转义处理
+   *
+   * @default false
+   */
+  enableEscape?: boolean;
+}
+
+/** build-scripts为插件提供的API接口/能力配置 */
+export interface IConfig {
+  /** context 参数包含运行时的各种环境信息 */
+  context?: {
+    /** 项目根目录 */
+    rootDir?: string;
+  };
 }
 
 declare module 'dts-docgen' {
-  /** build-scripts为插件提供的API接口/能力配置 */
-  export interface IConfig {
-    /** context 参数包含运行时的各种环境信息 */
-    context?: {
-      /** 项目根目录 */
-      rootDir?: string;
-    };
-  }
-
   /**
    * 根据dts文件转换成对应的API解释文档
    */
