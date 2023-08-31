@@ -33,25 +33,40 @@ function dtsGen({ input, output }) {
 
 /**
  * 对插件配置进行预处理，避免错误配置造成的异常
- * @param {Object} _ build-scripts为插件提供的API接口/能力
+ * @param {Object} config build-scripts为插件提供的API接口/能力配置
+ * @param {object} config.context context 参数包含运行时的各种环境信息
+ * @param {string} config.context.rootDir 项目执行的根目录
  * @param {import('.').IOptions} options 自定义参数
  */
-module.exports = function (_, options) {
+module.exports = function ({ context }, options) {
+  let { rootDir } = context;
   const { input, output, overwrite = true } = options;
 
-  const inputPath = adjuster.adjustInput(input);
+  if (!rootDir) {
+    rootDir = process.cwd();
+    console.log('未指定项目根路径，将使用当前目录作为项目根路径: ', rootDir);
+  } else {
+    console.log('插件将根据项目根路径工作: ', rootDir);
+  }
+
+  console.log('-------------------------------------------');
+
+  const inputPath = adjuster.adjustInput(input, rootDir);
 
   if (!inputPath || inputPath.length === 0) {
     console.log('指定输入路径不存在可识别的dts文件，插件将结束读取过程...');
     return;
   }
 
-  let outputPath = adjuster.adjustOutput(output);
+  let outputPath = adjuster.adjustOutput(output, rootDir);
 
   if (fs.existsSync(outputPath) && !overwrite) {
     console.log('指定输出路径已存在文件，插件将跳过覆写过程...');
     return;
   }
+
+  console.log('dts文件读取路径: ', inputPath);
+  console.log('md文档输出路径: ', outputPath);
 
   dtsGen({ input: inputPath, output: outputPath });
 };

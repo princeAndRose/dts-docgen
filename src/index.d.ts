@@ -61,9 +61,18 @@ export interface IOptions {
 }
 
 declare module 'dts-docgen' {
+  /** build-scripts为插件提供的API接口/能力配置 */
+  export interface IConfig {
+    /** context 参数包含运行时的各种环境信息 */
+    context?: {
+      /** 项目根目录 */
+      rootDir?: string;
+    };
+  }
+
   /**
    * 根据dts文件转换成对应的API解释文档
    */
-  const docGen: (_: any, options: IOptions) => void;
+  const docGen: (config: IConfig | undefined, options: IOptions) => void;
   export default docGen;
 }

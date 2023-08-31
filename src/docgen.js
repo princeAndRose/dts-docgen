@@ -51,11 +51,14 @@ order: 2
     })
     .join('\n');
 
-  const typeTable = `
+  const typeTable =
+    typeData.length > 0
+      ? `
 ## type类型描述
 | 名称 | 类型 | 描述 |
 | --- | --- | --- |
-${generateTypeRows(typeData)}`;
+${generateTypeRows(typeData)}`
+      : '';
 
   return `${pageHeader}\n${apiTableList}\n${typeTable}`;
 }

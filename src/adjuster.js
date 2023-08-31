@@ -1,8 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 
-const rootDir = process.cwd();
-
 /**
  * 校正处理输入路径
  *
@@ -14,9 +12,10 @@ const rootDir = process.cwd();
  * 4. 输入路径是null、undefined或空的.
  *
  * @param {string | string[] | null} input
+ * @param {string} rootDir 项目根路径
  * @return {string[] | undefined}
  */
-function adjustInput(input) {
+function adjustInput(input, rootDir) {
   if (!input || input.length === 0) {
     return;
   }
@@ -35,7 +34,13 @@ function adjustInput(input) {
 
   return result
     .map(item => {
-      const resolvedPath = path.resolve(item);
+      let resolvedPath = '';
+
+      if (path.isAbsolute(item)) {
+        resolvedPath = path.resolve(item);
+      } else {
+        resolvedPath = path.resolve(resolvedProjectRoot, item);
+      }
 
       // 判断输入路径根路径是否与项目根路径保持一致
       if (!resolvedPath.startsWith(resolvedProjectRoot)) {
@@ -60,16 +65,23 @@ function adjustInput(input) {
 /**
  * 校正输出路径
  * @param {string} output 待校正输出路径
+ * @param {string} rootDir 项目根路径
  */
-function adjustOutput(output) {
+function adjustOutput(output, rootDir) {
   let outputPath = '';
 
   // 判断是否指定了输出路径，没有则使用默认路径
   if (!output) {
     outputPath = path.join(rootDir, 'doc/api.md');
+  } else {
+    outputPath = output;
   }
 
-  outputPath = path.resolve(outputPath);
+  if (path.isAbsolute(outputPath)) {
+    outputPath = path.resolve(outputPath);
+  } else {
+    outputPath = path.resolve(rootDir, outputPath);
+  }
 
   // 判断输入路径是否为目录
   if (!outputPath.includes('.')) {
